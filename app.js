@@ -12,9 +12,11 @@ var Post = mongoose.model('Post', PostSchema);
 dotenv.config();
 
 const app = express();
+app.set('view engine', 'pug');
+app.use(express.static('views'));
 
 app.route('/').get((req, res) => {
-  res.send('its\' work');
+  res.render('index', { title: 'Hey', message: 'Hello there!!' });
 })
 
 app.route('/mongo').get(async (req, res) => {
@@ -30,9 +32,9 @@ app.route('/mongo').get(async (req, res) => {
 })
 
 
-mongoose.connect(process.env.MONGO_DB).then(() => {
-  console.log('db connected')
-  app.listen(process.env.PORT || 3000);
-}).catch(err => {
-  console.log(err);
-})
+// mongoose.connect(process.env.MONGO_DB).then(() => {
+//   console.log('db connected')
+app.listen(process.env.PORT || 3000);
+// }).catch(err => {
+//   console.log(err);
+// })
